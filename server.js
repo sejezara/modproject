@@ -15,7 +15,7 @@ const container = require('./container');
 
 
 
-container.resolve(function(users){
+container.resolve(function(users, _){
 
 	mongoose.Promise = global.Promise;
 	mongoose.connect('mongodb://localhost/appmp');
@@ -52,6 +52,7 @@ container.resolve(function(users){
 		app.use(bodyParser.urlencoded({extended: true}));
 
 		app.use(validator());
+
 		app.use(session({
 			secret: 'thisisasecretkey',
 			resave: true,
@@ -63,6 +64,9 @@ container.resolve(function(users){
 
 		app.use(passport.initialize());
 		app.use(passport.session());
+
+		app.locals._ = _; 
+
 	}
 
 });
