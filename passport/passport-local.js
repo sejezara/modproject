@@ -14,7 +14,6 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-module.exports = function(){
 passport.use('local.signup', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
@@ -29,9 +28,10 @@ passport.use('local.signup', new LocalStrategy({
         if(user){
             return done(null, false, req.flash('error', 'User with email already exist'));
         }
-
-		const newUser = new User();
+        
+        const newUser = new User();
         newUser.username = req.body.username;
+        newUser.fullname = req.body.username;
         newUser.email = req.body.email;
         newUser.password = newUser.encryptPassword(req.body.password);
         
@@ -40,4 +40,3 @@ passport.use('local.signup', new LocalStrategy({
         });
     });
 }));
-}
