@@ -1,0 +1,17 @@
+.btn-gplus{
+	background: #e44b34;
+	border-radius: 0;
+	color: #fff;
+	width: 100px;
+}
+
+.btn-gplus:link, .btn-gplus:visited{
+	color: #fff;
+	text-decoration: none;
+	background: #e44b34;
+}
+
+.btn-gplus:active, .btn-gplus:hover{
+	background: #e44b34;
+	color: #fff;
+}

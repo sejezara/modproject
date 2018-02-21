@@ -7,6 +7,8 @@ module.exports = function(_, passport, User){
 			router.get('/', this.indexPage);
 			router.get('/signup', this.getSignUp);
 			router.get('/home', this.homepage);
+			router.get('/auth/google', this.getGoogleLogin);
+			router.get('/auth/google/callback', this.googleLogin);
 
 			router.post('/', User.LoginValidation, this.postLogin);
 			router.post('/signup', User.SignUpValidation, this.postSignUp);
@@ -29,6 +31,19 @@ module.exports = function(_, passport, User){
 		},
 
 		postSignUp: passport.authenticate('local.signup', {
+			successRedirect: '/home',
+			failureRedirect: '/signup',
+			failureFlash: true
+		}),
+
+		getGoogleLogin: passport.authenticate('google',{
+			hd: 'alumnos.udg.mx',
+			prompt: 'select_account',
+			scope: ['https://www.googleapis.com/auth/plus.login',
+					'https://www.googleapis.com/auth/plus.profile.emails.read']
+		}),
+
+		googleLogin: passport.authenticate('google',{
 			successRedirect: '/home',
 			failureRedirect: '/signup',
 			failureFlash: true

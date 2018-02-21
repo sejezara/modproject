@@ -9,6 +9,10 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="/css/login.css">
+
 </head>
 
 <body>
@@ -52,6 +56,14 @@
     <br>  
 
 	<form action="/signup" method="POST">
+
+		<h3 class="text-center">
+			<a href="/auth/google" class="btn-social btn-gplus btn-lg">
+				<i class="fa fa-google-plus "></i> Registrarse Con Google+	
+			</a>
+		</h3>
+		<br>
+		<br>
 
 		<% if (hasErrors) { %>
 			<div class=" alert alert-danger text-center">
