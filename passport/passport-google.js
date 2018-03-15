@@ -24,7 +24,8 @@ passport.use(new GoogleStrategy({
 }, (req, accessToken, refreshToken, profile, done) => {  
 
     if(profile._json.domain !== 'alumnos.udg.mx'){
-        done(new Error("Invalid host domain"));        
+        done(new Error("Email invalido"));
+               
     }else{
       User.findOne({google:profile.id}, (err, user) => {
        if(err){
