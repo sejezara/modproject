@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const groupNames = mongoose.Schema({
 	name: {type: String, default: ''},
-	pais: {type: String, default: ''},
+	carrera: {type: String, default: ''},
 	image: {type: String, default: 'default.png'},
 	members:[{
 		username: {type: String, default: ''},

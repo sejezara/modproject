@@ -15,7 +15,7 @@ const container = require('./container');
 
 
 
-container.resolve(function(users, _, admin){
+container.resolve(function(users, _, admin, home){
 
 	mongoose.Promise = global.Promise;
 	mongoose.connect('mongodb://localhost/appmp');
@@ -35,12 +35,13 @@ container.resolve(function(users, _, admin){
 		const router = require('express-promise-router')();
 		users.SetRouting(router);
 		admin.SetRouting(router);
-		
+		home.SetRouting(router);
+
 		app.use(router);
 
 	}
 
-	
+
 
 	function ConfigureExpress(app){
 		require('./passport/passport-local');
@@ -66,7 +67,7 @@ container.resolve(function(users, _, admin){
 		app.use(passport.initialize());
 		app.use(passport.session());
 
-		app.locals._ = _; 
+		app.locals._ = _;
 
 	}
 
