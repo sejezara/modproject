@@ -9,13 +9,15 @@ const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const passport = require('passport');
+const socketIO = require('socket.io');
+const {Users} = require('./helpers/UsersClass'); 
 
 
 const container = require('./container');
 
 
 
-container.resolve(function(users, _, admin, home){
+container.resolve(function(users, _, admin, home, group){
 
 	mongoose.Promise = global.Promise;
 	mongoose.connect('mongodb://localhost/appmp');
@@ -25,17 +27,21 @@ container.resolve(function(users, _, admin, home){
 	function SetupExpress(){
 		const app = express();
 		const server = http.createServer(app);
+		const io = socketIO(server);
 		server.listen(3000, function(){
-			console.log('Listening on port 3000');
+			console.log('Servidor Listo, Puerto: 3000');
 		});
 
 		ConfigureExpress(app);
+		
+		require('./socket/groupchat')(io, Users);
 
 		//Setup Router
 		const router = require('express-promise-router')();
 		users.SetRouting(router);
 		admin.SetRouting(router);
 		home.SetRouting(router);
+		group.setRouting(router);
 
 		app.use(router);
 
@@ -46,6 +52,7 @@ container.resolve(function(users, _, admin, home){
 	function ConfigureExpress(app){
 		require('./passport/passport-local');
 		require('./passport/passport-google');
+
 
 		app.use(express.static('public'));
 		app.use(cookieParser());
