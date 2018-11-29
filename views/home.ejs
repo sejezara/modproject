@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Aplicacion De Chat En Tiempo Real</title>
+    <title>C.CHAT</title>
 
     <meta charset="utf-8">
 
@@ -17,57 +17,43 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css"> 
 
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-    
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
-
 </head>
 
 
 <body>
 
-  <%- include partials/navbar.ejs %>
-
-  
-  <div class="container">
-          <form class="form-control" action="#" method="post">
-                <div class="input-group">
-                    <select class="custom-select" name="carrera" id="carrera">
-                      <option value>Filtrar Por Carrera...</option>
-                      <% _.forEach(carrera, function(value){ %>
-                       <option value="<%= value._id %>"><%=value._id %></option>
-                      <% }) %>
-                    </select>
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button">Aplicar</button>
-                      </div>
-                  </div>
-          </form>
-
-  </div>
+ <%- //include partials/navbar.ejs %>
 
   <hr>
 
 <div class="container">
   
+    <input type="hidden" id="name-user" value="<%= user.username %>">
+    <input type="hidden" id="name-image" value="<%= user.userImage %>">
 
-
-      <% _.forEach(data, function(val) { %>
+      <% _.forEach(chunks, function(val) { %>
 
         <div class="card-deck">
           <% _.forEach(val, function(val2) { %>
-          <a href="/group/<%= val2.name %>" class="card-link">
+          
+          <a href="/group/<%= val2.name.replace(/ /g, "-") %>" class="card-link">
             <div class="card">
               <img src="/uploads/<%= val2.image %>" class="card-img-top img-fluid" alt="Card image cap">
               <div class="card-body">
-                <h5 class="card-title"><%= val2.name  %></h5>
+                <h5 class="card-title"><%= val2.name  %> (<%= val2.members.length %>) </h5>
               </a>
                 <p class="card-text"><%= val2.carrera  %></p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <form action="/home" method="post" id="favorite">
+
+                  <small class="text-muted">Last updated 3 mins ago</small>
+                <input type="hidden" name="id" id="id" value="<%= val2._id %>">
+                <input type="hidden" name="groupName" id="group_Name" value="<%= val2.name %>">
+                <button class="btn-primary align-items-center">Fav</button>
+</form>
+                
+                
               </div>
             </div>
 
@@ -98,14 +84,10 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
 
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script> -->
+<script src="/socket.io/socket.io.js"></script>  
+<script src="/js/group/sentrequest.js"></script>
+<script src="/js/home.js"></script>
+<script src="/js/global.js"></script>
 
 </body>
 </html>

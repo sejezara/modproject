@@ -7,7 +7,9 @@ const simpleDependecies = [
     ['_', 'lodash'],
     ['passport', 'passport'],
     ['formidable', 'formidable'],
-    ['async','async'],
+    ['async', 'async'],
+    ['Users', './models/user'],
+    ['Message', './models/message'],
     ['Grupo', './models/grupo']
 ];
 

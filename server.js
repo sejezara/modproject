@@ -11,13 +11,14 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const socketIO = require('socket.io');
 const {Users} = require('./helpers/UsersClass'); 
+const {Global} = require('./helpers/Global');
 
 
 const container = require('./container');
 
 
 
-container.resolve(function(users, _, admin, home, group){
+container.resolve(function(users, _, admin, home, group, privatechat){
 
 	mongoose.Promise = global.Promise;
 	mongoose.connect('mongodb://localhost/appmp');
@@ -35,6 +36,9 @@ container.resolve(function(users, _, admin, home, group){
 		ConfigureExpress(app);
 		
 		require('./socket/groupchat')(io, Users);
+		require('./socket/friend')(io);
+		require('./socket/globalroom')(io, Global, _);
+		require('./socket/privatemessage')(io);
 
 		//Setup Router
 		const router = require('express-promise-router')();
@@ -42,6 +46,7 @@ container.resolve(function(users, _, admin, home, group){
 		admin.SetRouting(router);
 		home.SetRouting(router);
 		group.setRouting(router);
+		privatechat.setRouting(router);
 
 		app.use(router);
 

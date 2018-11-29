@@ -1,4 +1,6 @@
-<div>
+
+
+<!-- <div>
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,31 +10,131 @@
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item active">
+
+        <li class="nav-item">
           <a class="nav-link" href="/home">Home<span class="sr-only"></span></a>
         </li>
+        
         <li class="nav-item">
-          <a class="nav-link" href="#">Miembros</a>
+          <a class="nav-link" href="/index">Login</a>
         </li>
+
+
         <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                Dropdown link
+            <div class="float-right">
+                <% if(data.totalRequest > 0) { %>
+                  <a class="dropdown-item" href="#">Friend Request<span class="badge badge-pill indigo"><%= data.request.length %></span></a>
+                    <% _.forEach(data.request, function (val) { %>
+                        <a class="dropdown-item" href="#"><%= val.username %></a>
+                    <% }) %>
+                  <% } else { %>
+                  <a class="dropdown-item" href="#">No Friend Request<span class="badge badge-pill indigo" style="display:none"></span></a>
+                <% } %>  
+            </div>
+            
+                
+        </li>
+
+      </ul>
+
+          
+
+
+      
+</div>
+
+
+<a class="dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= user.username %>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">                    
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-            </li>
-      </ul>
-    </div>
 
+</nav> -->
 
-  </nav>
-</div>
-
+<!-- <br>
 <br>
 
+<hr> -->
 
-<hr>
+
+
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color fixed-top">
+
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="/home">C.CHAT</a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto" id="reload">
+          <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Login</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/logout"><span class="fa fa-sign-out"></span>Logout</a>
+          </li>
+
+
+          <!-- Dropdown -->
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i></a>
+              <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+               
+                <% if(data.totalRequest > 0) { %>
+                  <h6 class="dropdown-item text-center">Solicitudes De Amistad  <%= data.request.length %> </h6> 
+                    <% _.forEach(data.request, function (val) { %>
+                      <div>
+                        <input type="hidden" name="senderId" id="senderId" value="<%= val.userId._id %>">
+                        <input type="hidden" name="senderName" id="senderName" value="<%= val.username %>">                        
+                        <strong id=""><%= val.username %></strong><button type="submit" name="accept" id="accept_friend" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> Aceptar</button>
+                      </div>
+                        
+                      <div>
+                        <input type="hidden" name="user_Id" id="user_Id" value="<%= val.userId._id %>">
+                        <button type="submit" name="cancel" id="cancel_friend" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
+                      </div>
+                        
+                     
+                     <% }) %>
+                <% } else { %>
+                  <a class="dropdown-item" href="#">Sin Solicitudes De Amistad</a>
+                <% } %>  
+
+              </div>
+          </li>
+
+          <li>
+            <%- include message.ejs %>
+          </li>
+
+      </ul>
+      <!-- Links -->
+
+
+      <form class="form-inline">
+          <div class="md-form my-0">
+              <a><%= user.username %></a>
+          </div>
+      </form>
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+
+<br><br><br>

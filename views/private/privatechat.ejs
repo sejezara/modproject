@@ -15,16 +15,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/grupo.css">    
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-      
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
-
+     
 </head>
 <body>
   
-  <%- //include ../partials/navbar.ejs %>
+  <%- include ../partials/navbar.ejs %>
 
 <div class="container">
     
@@ -113,9 +108,7 @@
                         <div class="row">
                             <div class="new_message_head">
                                 <div class="pull-left">
-                                <button class="group_name">
-                                  <%= groupName  %>
-                                </button>
+                                <button id="receiver_name"></button>
                                 </div>
                                 <div class="pull-right">
                                 </div>
@@ -123,18 +116,33 @@
 
                             <div class="chat_area">
                               <ul id="messages" class="list-unstyled">
-                               
-                                <!-- <li class="left">
-                                  <span class="chat-img1 pull-left">
-                                    <img src="http://placehold.it/300x300" class="img-circle" alt="">
-                                  </span>
-                                  <div class="chats-body1">
-                                    <span class="chat-name">Username</span>
-                                    <br>
-                                    Message Body
-                                  </div>
-                                </li> -->
-                              
+                               <% if(chats.length > 0){ %>   
+                                    <% _.forEach(chats, function(val) { %>
+                                        <% if(name === val.receiver.username,toLowerCase()){ %>
+                                            <li class="left">
+                                            <span class="chat-img1 pull-left">
+                                                <img src="http://placehold.it/300x300" class="img-circle" alt="">
+                                            </span>
+                                            <div class="chats-body1">
+                                                <span class="chat-name"><%= val.senderName %></span>
+                                                <br>
+                                                <%= val.message %>
+                                            </div>
+                                            </li> 
+                                        <% } else if(name === val.sender.username.toLowerCase){ %>
+                                            <li class="left">
+                                            <span class="chat-img1 pull-left">
+                                                <img src="http://placehold.it/300x300" class="img-circle" alt="">
+                                            </span>
+                                            <div class="chats-body1">
+                                                <span class="chat-name"><%= val.senderName %></span>
+                                                <br>
+                                                <%= val.message %>
+                                            </div>
+                                            </li> 
+                                        <% } %> 
+                                    <% }) %>
+                               <% } %> 
                               </ul>
 
                               <script id="message-template" type="text/template">
@@ -153,9 +161,7 @@
                             </div>
 
                             <div class="message_write">
-                              <form action="#" id="message-form" method="post">
-                                <input type="hidden" id="groupName" value="<%= groupName %>">
-                                <input type="hidden" name="sender" id="sender" value="<%= user.username %>">
+                              <form id="message_form" method="post">
                                   <textarea class="form-control" name="message" id="msg" placeholder="Escribir Un Mensaje..."></textarea>
                                   <div class="clearfix"></div>
                                   <div class="chat_bottom">
@@ -167,61 +173,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-sm-3 col-md-3 mob-50 mob-clearfix">
-
-
-                        <div class="new_message_head">
-                            <div class="pull-left">
-                                <button class="club_fans">
-                                    <i class="fa fa-users" aria-hidden="true" style="padding-right:15px; color:#4aa1f3 !important;"></i>
-                                    Amigos Del Grupo Online <span id="numValue"></span>
-                                </button>
-                            </div>
-                        </div>
-
-
-
-                        <div class="gr-rightsidebar">
-
-                            <div id="myModal" class="modal fade" role="dialog">
-                              <div class="modal-dialog">
-
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h3 class="modal-title" id="name"></h3>
-                                  </div>
-                                  <div class="modal-body">
-                                    <form action="" method="get" id="add_friend">
-                                        <input type="hidden" name="receiverName" id="receiverName" value="">
-                                        <input type="hidden" name="sender-name" id="sender-name" value="<%= user.username %>">
-                                        <button type="submit" id="friend-add" class="btn add"><i class="fa fa-user"></i> Agregar Amigo</button>
-                                        
-                                        <a id="nameLink" class="btn ">Ver Perfil</a>
-
-                                        <div id="myTest">
-                                            
-                                        </div>
-                                    </form>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn_close" data-dismiss="modal">Cerrar</button>
-                                  </div>
-                                </div>
-
-                              </div>
-                            </div>
-
-                            <div class="col-md-12"  id="main">
-                                <div id="users"></div>
-                                
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
 
             </div>
 
@@ -251,9 +202,11 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
 
   <script src="/socket.io/socket.io.js"></script>       
-  <script src="/js/group/groupchat.js"></script>
+  <script src="/js/privatechat/pm.js"></script>
+  <script src="/js/messagelink.js"></script>
   <script src="/js/group/sentrequest.js"></script>
   <script src="/js/global.js"></script>
+  <script src="/js/deparam.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
 
 </body>

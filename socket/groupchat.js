@@ -3,7 +3,7 @@ module.exports = function(io, Users){
 		const users = new Users();
 
 		io.on('connection', (socket) =>{
-			console.log('Usuario Conectado!');
+			//console.log('Usuario Conectado!');
 
 			socket.on('join', (params, callback) =>{
 				socket.join(params.room);
@@ -29,7 +29,7 @@ module.exports = function(io, Users){
 				if(user){
 					io.to(user.room).emit('usersList', users.GetUsersList(users.room));
 				}
-			});
+			})
 
 		
 		});
