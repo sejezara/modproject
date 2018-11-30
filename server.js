@@ -21,7 +21,8 @@ const container = require('./container');
 container.resolve(function(users, _, admin, home, group, privatechat){
 
 	mongoose.Promise = global.Promise;
-	mongoose.connect('mongodb://localhost/appmp');
+	mongoose.connect('mongodb://localhost/appmp', {useNewUrlParser: true});
+	mongoose.set('useCreateIndex', true);
 
 	const app = SetupExpress();
 

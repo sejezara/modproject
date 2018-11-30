@@ -118,7 +118,7 @@
                               <ul id="messages" class="list-unstyled">
                                <% if(chats.length > 0){ %>   
                                     <% _.forEach(chats, function(val) { %>
-                                        <% if(name === val.receiver.username,toLowerCase()){ %>
+                                        <% if(name === val.receiver.username.toLowerCase()){ %>
                                             <li class="left">
                                             <span class="chat-img1 pull-left">
                                                 <img src="http://placehold.it/300x300" class="img-circle" alt="">

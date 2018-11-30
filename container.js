@@ -10,6 +10,7 @@ const simpleDependecies = [
     ['async', 'async'],
     ['Users', './models/user'],
     ['Message', './models/message'],
+    ['Group', './models/groupmessage'],
     ['Grupo', './models/grupo']
 ];
 

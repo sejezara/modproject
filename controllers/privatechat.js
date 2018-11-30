@@ -1,4 +1,4 @@
-module.exports = function(async, Users, Message){
+module.exports = function(async, Users, Message, FriendResult){
     return{
         setRouting: function(router){
             router.get('/chat/:name', this.getchatPage);
@@ -95,6 +95,8 @@ module.exports = function(async, Users, Message){
             ], (err, results) => {
                 res.redirect('/chat/'+ req.params.name);
             });
+
+            FriendResult.PostRequest(req, res, '/chat/'+req.params.name);
 
         }
 

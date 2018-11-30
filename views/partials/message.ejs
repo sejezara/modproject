@@ -14,7 +14,6 @@
     <span class="label label-primary nav-label-icon" id=""></span>
     <% } %>   
 </a>
-
 <ul class="dropdown-menu dmenu">
     <li>
         <div class="navbar-login">
@@ -58,7 +57,7 @@
                     </div>
                 </div>
                 </a>
-                        <% } else if(user.username === val.senderName){ %>
+                        <% } else if(user.username === val.body.senderName){ %>
                             <a data-value="<%= val.body._id %>" id="messageLink" href="/chat/<%= _.lowerCase(val.body.receiverName) %>.<%= _.lowerCase(user.username) %>">
                                 <div class="row">
                                     <div class="col-md-3">
