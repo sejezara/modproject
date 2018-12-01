@@ -18,7 +18,7 @@ const container = require('./container');
 
 
 
-container.resolve(function(users, _, admin, home, group, privatechat){
+container.resolve(function(users, _, admin, home, group, privatechat, results){
 
 	mongoose.Promise = global.Promise;
 	mongoose.connect('mongodb://localhost/appmp', {useNewUrlParser: true});
@@ -46,8 +46,9 @@ container.resolve(function(users, _, admin, home, group, privatechat){
 		users.SetRouting(router);
 		admin.SetRouting(router);
 		home.SetRouting(router);
-		group.setRouting(router);
-		privatechat.setRouting(router);
+		group.SetRouting(router);
+		privatechat.SetRouting(router);
+		results.SetRouting(router);
 
 		app.use(router);
 

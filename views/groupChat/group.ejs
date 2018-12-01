@@ -15,12 +15,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/grupo.css">    
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-      
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
-
+    
 </head>
 <body>
   
@@ -123,18 +118,20 @@
 
                             <div class="chat_area">
                               <ul id="messages" class="list-unstyled">
-                               
-                                <!-- <li class="left">
+                               <% _.forEach(groupMsg, function(val) { %>
+                                <% if(groupName === val.name){ %>
+                                 <li class="left">
                                   <span class="chat-img1 pull-left">
                                     <img src="http://placehold.it/300x300" class="img-circle" alt="">
                                   </span>
                                   <div class="chats-body1">
-                                    <span class="chat-name">Username</span>
+                                    <span class="chat-name"><%= val.sender.username %></span>
                                     <br>
-                                    Message Body
+                                    <%= val.body %>
                                   </div>
-                                </li> -->
-                              
+                                </li> 
+                                <% } %>
+                               <% }) %>
                               </ul>
 
                               <script id="message-template" type="text/template">

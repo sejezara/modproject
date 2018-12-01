@@ -121,7 +121,7 @@ module.exports = function(async, Users, Message){
                         {
                             "isRead": true
                         }, (err, done) => {
-                            console.log(done)
+                            console.log(done);
                             callback(err, done);
                         });
                     }
@@ -133,22 +133,3 @@ module.exports = function(async, Users, Message){
         }
     }
 }
-
-
-// async.parallel([
-//     function(callback){
-//         if(req.body.chatId){
-//             Message.update({
-//                 "_id": req.body.chatId
-//             },
-//             {
-//                 "isRead": true
-//             }, (err, done) => {
-//                 console.log(done)
-//                 callback(err, done);
-//             });
-//         }
-//     }
-// ], (err, results) => {
-//     res.redirect('/chat/'+ req.params.name);
-// });
